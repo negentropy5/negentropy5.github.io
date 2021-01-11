@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>calendar</title>
+  <link rel="stylesheet" href="css/calendar.css">
+</head>
+<body>
+  <div class="btn">
+    <div id="pre">prev</div>
+    <div id="nex">next</div>
+  </div>
+  <div class="container"></div>
+
+  <script>
+    const container = document.querySelector('.container');
+    
+    const weeks = ['日','月','火','水','木','金','土'];
+    let year = new Date().getFullYear();
+    let month = new Date().getMonth() + 1; 
+    
+    function increase(year, month) {
+      for(let i = 0; i < 12; i++){ // 12ヵ月分のcalendar作成
+        create(year, month);
+        month++;
+        if(month > 12) {
+          year++; // 次の年にする
+          month = 1; // monthが「13」なったら「1(月)」にする
+        }
+      }
+    }
+    increase(year, month);
+    
+    function create(year, month) { //12回ループ
+      const firstDay = new Date(year, month - 1, 1).getDay();
+      const lastDate = new Date(year, month, 0).getDate();
+      let count = 0;
+
+      const section = document.createElement('section');
+
+      const h1 = document.createElement('h1'); //h1
+      h1.innerHTML = `${year}年 ${month}月`;
+      section.appendChild(h1)
+  
+      const table = document.createElement('table'); // table
+      section.appendChild(table);
+
+      container.appendChild(section);
+  
+      weeks.forEach(week => {
+        const tdDay = document.createElement('td'); // td(曜日)
+        tdDay.innerHTML = week;
+        table.appendChild(tdDay);
+      });
+  
+      for(let row = 0; row < 6; row++) {
+        const tr = document.createElement('tr'); // 6回ループ(行)
+        for(let col = 0; col < 7; col++) {
+          const tdDate = document.createElement('td'); // 7回ループ(列)
+  
+          if(row === 0 && col >= firstDay) { // 1行目の処理
+            count++;
+            tdDate.innerHTML = count;
+          }
+          if(row > 0) { // 2行目以降の処理
+            count++;
+            tdDate.innerHTML = count;
+            if(count === new Date().getDate() && 
+            month === new Date().getMonth() + 1 &&
+            year === new Date().getFullYear()) {
+              tdDate.classList.add('active');
+              }
+          }
+          if(count > lastDate) tdDate.innerHTML = ''; // 最終行の処理
+        
+          tr.appendChild(tdDate);
+        }
+        table.appendChild(tr);
+      }
+    }
+    
+    pre.addEventListener('click',()=>{
+      document.querySelectorAll('section').forEach(sec =>{
+        sec.remove(); // すべてのsectionを一旦削除
+      });
+      month--; 
+        if(month < 1) {
+          year--;
+          month = 12; 
+        }
+      increase(year, month);
+    });
+
+    nex.addEventListener('click',()=>{
+      document.querySelectorAll('section').forEach(sec =>{
+        sec.remove();
+      });
+      month++; 
+        if(month > 12) {
+          year++;
+          month = 1; 
+        }
+      increase(year, month);
+    });
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game</title>
+  <link rel="stylesheet" href="css/game.css">
+  <link rel="icon" href="../miikethou.ico">
+</head>
+<body>
+  <main>
+    <section class="game">
+      <div class="container">
+    
+        <div class="canvasPanels">
+          <canvas id="back" width="480" height="880"></canvas>
+          <canvas id="game" width="480" height="880"></canvas>
+        </div>
+    
+        <div class="nextPanels">
+          <div class="nextC">
+            <canvas id="next" width="160" height="160"></canvas>
+          </div>
+          <div class="startBtn">Start</div>
+          <div class="score">score<br><span id="Score">0</span></div>
+          <div class="divBtn">
+            <div>回転</div><div>左</div><div>右</div><div>下</div>
+          </div>
+          <fieldset class="note">
+            <legend>PC</legend>
+            キーボード<br>操作可<br>← ↑ → ↓
+          </fieldset>
+          <div class="home"><a href="../index.html">home</a></div>
+        </div>
+    
+      </div> 
+    </section>
+  </main>
+
+  <script src="js/game.js"></script>
+  <script>
+
+
+  </script>
+</body>
+</html>

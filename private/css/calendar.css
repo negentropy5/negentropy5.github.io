@@ -1,0 +1,64 @@
+.btn {
+  display: flex; 
+  margin: 5px}
+.btn div {
+  margin-left: 20px;
+  padding: 2px 10px;
+  background: #4285f4;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  box-shadow: 4px 4px 4px rgba(0,0,0,.4);
+} 
+.btn div:active {
+  position: relative;
+  top: 2px; 
+  box-shadow: 2px 2px 2px rgba(0,0,0,.4);
+}
+section {
+  text-align: center;
+  color: #333;
+}
+h1 {
+  margin: 5px 0;
+  font-weight: normal;
+  font-size: 20px;
+}
+table {
+  border-collapse: collapse;
+  width: 90%; 
+  margin: 20px auto;
+}
+td {
+  border: 1px solid #aaa;
+  text-align: center;
+  height: 25px;
+}
+td.active {
+  background: #effaaf;
+}
+td:first-child {
+  color: red;
+}
+td:nth-of-type(7) {
+  color: #4285f4;
+}
+
+@media (min-width: 550px) {
+  .container {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 800px) {
+  .container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 1000px) {
+  .container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
