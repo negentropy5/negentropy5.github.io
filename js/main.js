@@ -1,217 +1,175 @@
-"use strict";
-
-const Source =[
-  [
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000012.jpg',
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000007.jpg',
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000013.jpg',
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000014.jpg',
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000015.png',
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000016.png',
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000017.png',
-  ],
-  [
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000023.png',
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000024.png',
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000025.png',
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000026.png',
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000027.png',
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000028.png',
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000029.png',
-  ],
-  [
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000018.jpg',
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000019.jpg',
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000020.jpg',
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000021.jpg',
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000022.png',
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000052.png',
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000051.png',
-  ],
-  [
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000031.png',
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000030.png',
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000032.png',
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000006.png',
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000048.jpg',
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000049.jpg',
-    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000050.png',
-  ]
-];
-// < ★追加場所2 >
-
 class Photo {
-  constructor(source){
+  constructor(Source) {
+      this.Source = Source;     // 画像配列
+      this.is_readed = false;   // インスタンス読み込み制御
+      this.icons = [];          // 画面切り替えするための配列
+      this.icon_current = 0;    // 読み込んだimgの数
+      this.opacity_current = 0; // active classの付け外し
+      this.clear_time_out;      // timerの停止
+      this.timer_go = false;    // timerが走っているか判定
 
-    this.source = source;
-    this.loading = 0;
-    this.memoindex = 0;
-    this.isshowed = false;
-
-    this.sectionPhoto = document.createElement('section');
-    this.sectionPhoto.classList.add('photo');
-    this.mainImg = document.createElement('img');
-    this.mainImg.classList.add('mainImg');
-    this.iconDiv = document.createElement('div');
-    this.iconDiv.classList.add('iconDiv');
-    
-    this.startdiv = document.createElement('div');
-    this.startdiv.classList.add('startdiv');
-    this.stopdiv = document.createElement('div');
-    this.stopdiv.classList.add('stopdiv');
-    const leftdiv = document.createElement('div');
-    leftdiv.classList.add('leftdiv');
-    const rightdiv = document.createElement('div');
-    rightdiv.classList.add('rightdiv');
-    this.sectionPhoto.appendChild(this.startdiv);
-    this.sectionPhoto.appendChild(this.stopdiv);
-    this.sectionPhoto.appendChild(leftdiv);
-    this.sectionPhoto.appendChild(rightdiv);
-    this.sectionPhoto.appendChild(this.mainImg);
-    main.appendChild(this.sectionPhoto);
-
-    this.startdiv.classList.add('active');
-
-    this.startdiv.addEventListener('click',()=>{
-      this.startdiv.classList.remove('active');
-      this.stopdiv.classList.add('active');
-      this.slide();
-    });
-
-    this.stopdiv.addEventListener('click',()=>{
-      this.stopdiv.classList.remove('active');
-      this.startdiv.classList.add('active');
-      this.slideStop();
-    });
-
-    leftdiv.addEventListener('click',()=>{
-      this.memoindex--;
-      if(this.memoindex < 0) this.memoindex = this.source.length - 1;
-      this.move(this.icons[this.memoindex]);
-    });
-
-    rightdiv.addEventListener('click',()=>{
-      this.memoindex++;
-      this.rightMove();
-    });
+      //sectionだけ作っておかないとactiveの付け外しでエラーになる
+      this.photo_section = document.createElement('section');
+      this.photo_section.classList.add('photo_section');
+      main.appendChild(this.photo_section);
   }
 
-  show() { // 配列の個数分しか呼ばれない
-    this.icons = this.source.map((sour, index) =>{
-      this.img = document.createElement('img');
-      this.img.src = sour;
-      if(index === 0) this.img.classList.add('active');
-      this.iconDiv.appendChild(this.img);
+  show() {
+      // if(this.is_readed === true) return;
+      this.main_img_div = document.createElement('div');
+      this.main_img_div.classList.add('main_img_div');
+      this.main_img = document.createElement('img');
+      this.main_img.classList.add('main_img');
+      // this.main_img.src = this.Source[0]; //draw()へ移動
+      this.play_div = document.createElement('div');
+      this.play_div.classList.add('play_div');
+      this.left_div = document.createElement('div');
+      this.left_div.classList.add('left_div');
+      this.right_div = document.createElement('div');
+      this.right_div.classList.add('right_div');
+      this.play_div.classList.add('play_div');
+      this.play_div.textContent = 'Play';
+      this.main_img_div.appendChild(this.main_img);
+      this.main_img_div.appendChild(this.play_div);
+      this.main_img_div.appendChild(this.left_div);
+      this.main_img_div.appendChild(this.right_div);
+      
+      this.icon_div = document.createElement('div');
+      this.icon_div.classList.add('icon_div');
 
-      this.img.addEventListener('load',()=>{
-        this.loading++;
-        // 画像をすべて読み込んでから this.draw()!
-        if(this.loading >= this.source.length) {
-          this.draw();
-          this.loading = 0;
-        }
+      this.Source.forEach(source =>{
+          this.icon_img = document.createElement('img');
+          this.icon_img.src = source;
+
+          this.icons.push(this.icon_img); //this.icons[]へ
+
+          this.icon_div.appendChild(this.icon_img);
       });
-      return this.img; //this.icons[]配列へ
-    });
-   
-    this.icons.forEach((ICON, index) =>{
-      ICON.addEventListener('click',()=>{
-        this.move(ICON);
 
-        this.memoindex = index;
+      // this.icons[]
+      this.icons.forEach((icon, index) =>{
+          // imgをすべて読み込んだ後に draw()
+          icon.addEventListener('load', () =>{
+
+            this.icon_current++;
+            if(this.icons.length === this.icon_current) {
+              loading_icon.classList.remove('active'); //★loading 閉
+              this.draw();
+              this.icon_current = 0;
+
+              // 初期の状態↓(先頭のimgだけopacity 1)
+              this.icons[this.opacity_current].classList.add('active');
+            }
+          });
+
+          // 直接、画面をタッチして main_img の切り替え処理
+          icon.addEventListener('click', () =>{
+            this.main_img.src = this.Source[index];
+            // active classの付け外し処理↓
+            this.icons[this.opacity_current].classList.remove('active');
+            this.opacity_current = index;
+            this.icons[this.opacity_current].classList.add('active');
+          });
       });
-    });
+
+      // 右スライド
+      this.right_div.addEventListener('click',()=>{
+          let target = this.opacity_current + 1;
+          if(target === this.icons.length) target = 0;
+          this.icons[target].click();
+      });
+      // 左スライド
+      this.left_div.addEventListener('click',()=>{
+          let target = this.opacity_current - 1;
+          if(target < 0) target = this.icons.length - 1;
+          this.icons[target].click();
+      });
+      // 自動スライド
+      this.play_div.addEventListener('click',()=>{
+          if(!this.timer_go) {
+              this.play_div.textContent = 'Stop';
+              this.auto_func();
+              this.timer_go = true;
+              return;
+          } 
+          this.play_div.textContent = 'Play';
+          clearTimeout(this.clear_time_out);
+          this.timer_go = false;
+      });
+
+      // this.photo_section.appendChild(this.main_img_div); //draw()へ移動
+      // this.photo_section.appendChild(this.icon_div); //draw()へ移動
   }
 
-  draw() { // 配列の個数分しか押されない
-    this.mainImg.src = this.source[0];
-    this.sectionPhoto.appendChild(this.iconDiv);
-
-    loading.classList.remove('active');
+  auto_func() {
+      this.right_div.click();
+      this.clear_time_out = setTimeout(()=>{
+          this.auto_func();
+      }, 1000);
   }
 
-  move(ICON) {
-    this.icons.forEach(icon =>{
-      icon.classList.remove('active');
-    });
-    ICON.classList.add('active');
-    this.mainImg.src = ICON.src;
+  draw() {
+      this.main_img.src = this.Source[0];
+
+      this.photo_section.appendChild(this.main_img_div);
+      this.photo_section.appendChild(this.icon_div);
   }
 
-  rightMove() { // 自動slide
-    if(this.memoindex >= this.source.length) this.memoindex = 0;
-    this.move(this.icons[this.memoindex]);
-  }
-
-  slide() {
-    this.memoindex++;
-    this.rightMove();
-    this.stop = setTimeout(()=>{
-      this.slide();
-    }, 1200);
-  }
-
-  slideStop() {
-    clearTimeout(this.stop);
-    this.startdiv.classList.add('active');
-    this.stopdiv.classList.remove('active');
+  is_readed_func() { // カプセル化
+      this.is_readed = true;
   }
 }
 
 const main = document.querySelector('main');
-const loading = document.querySelector('.loading');
-
-const p = Source.map(S => new Photo(S));
-
-
+const loading_icon = document.querySelector('.loading_icon');
 const iframes = document.querySelectorAll('iframe');
-const lists = document.querySelectorAll('header .nav1 li');
-const sections = document.querySelectorAll('section');
-const input = document.querySelector('#menu');
 
-iframes[0].src = 'https://player.vimeo.com/video/386126987?title=0&byline=0&portrait=0';
+const sources = Sources.map(Source => new Photo(Source)); // インスタンス
 
-lists[0].classList.add('active');
 
-lists.forEach((list, index) =>{
-  list.addEventListener('click', function(){
-    sections.forEach(section =>{
-      input.checked = false;
-      section.classList.remove('active');
+function home() { // home
+    iframes[0].src = 'https://player.vimeo.com/video/386126987?title=0&byline=0&portrait=0';
+    iframes[1].src = '';
+  }
+  function bbs() { // bbs
+    iframes[0].src = '';
+    iframes[1].src = 'https://9219.teacup.com/miike/bbs';
+  }
+
+// 各インスタンス「一回」しか呼ばれない
+function class_show(S) {
+    if(S.is_readed) return;
+    //↓各々一回ずつ↓
+    loading_icon.classList.add('active');//★loading 開
+    S.show();
+    S.is_readed_func(); // カプセル化
+}
+
+let current_index  = 0;
+let current_index2 = 0;
+const lis = document.querySelectorAll('header li');
+lis.forEach((li, index) =>{
+    li.addEventListener('click',()=>{
+        input.checked = false;
+
+        if(index === 0) home(); 
+        if(index === 1) bbs(); 
+        // 「一回ずつ」インスタンスを作る
+        if(index === 2) class_show(sources[0]);
+        if(index === 3) class_show(sources[1]);
+        if(index === 4) class_show(sources[2]);
+        if(index === 5) class_show(sources[3]);
+        // 追加場所.3★
+
+        // sectionを表示させる
+        const sections = document.querySelectorAll('section');
+        sections[current_index].classList.remove('active');
+        current_index = index;
+        sections[current_index].classList.add('active');
+
+        // clickしたliを黄色にする
+        lis[current_index2].classList.remove('active');
+        current_index2 = index;
+        lis[current_index].classList.add('active');
     });
-    sections[index].classList.add('active');
-
-    p.forEach(p => p.slideStop());
-
-    function home() { // home
-      iframes[0].src = 'https://player.vimeo.com/video/386126987?title=0&byline=0&portrait=0';
-      iframes[1].src = '';
-    }
-    function bbs() { // bbs
-      iframes[0].src = '';
-      iframes[1].src = 'https://9219.teacup.com/miike/bbs';
-    }
-    function photo(P) { // photo
-      iframes[0].src = '';
-      iframes[1].src = '';
-      if(!P.isshowed) {
-        P.show(); // 各々1回だけshow()を呼ぶ
-        loading.classList.add('active');
-      }
-      P.isshowed = true;
-    }
-    
-    if(index === 0) home(); 
-    if(index === 1) bbs(); 
-    if(index === 2) photo(p[0]); 
-    if(index === 3) photo(p[1]); 
-    if(index === 4) photo(p[2]); 
-    if(index === 5) photo(p[3]); 
-    // < ★追加場所3 >
-
-    lists.forEach(li =>{
-      li.classList.remove('active');
-    });
-    this.classList.add('active');
-  });
 });

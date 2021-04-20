@@ -2,88 +2,136 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="御池こけない体操愛好会。平均年齢80歳です。休校している御池小学校を使い、週1回グラウンドゴルフや「こなけない体操」などを楽しんでいます。">
-  <title>御池こけない体操愛好会</title>
   <title>Document</title>
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="icon" href="miikethou.ico">
-  <script>console.log('transition')</script>
 </head>
-
 <body>
-  <input type="checkbox" id="menu">
-  <label for="menu" class="open"><img src="img/menu.png"></label>
-  <label for="menu" class="modal"></label>
+<label for="input" class="open_label">
+  <span class="img_span">
+    <img src="img/menu.svg">
+  </span>
+</label>
+<input type="checkbox" id="input">
+<label for="input" class="modal"></label>
+<header>
+  <label for="input" class="close_label">
+    <span class="img_span">
+      <img src="img/close.svg">
+    </span>
+  </label>
 
-  <div class="container">
-    <header>
-      <label for="menu" class="close">×</label>
+  <ul>
+    <li class="active">
+      <span>Home - </span>
+      <span class="img_span"><img src="img/home.svg"></span>
+    </li>
+    <li>
+      <span>BBS - </span>
+      <span class="img_span"><img src="img/bbs.svg"></span>
+    </li>
 
-      <nav class="nav1">
-        <ul>
-          <li><img src="img/house.png"> Home</li>
-          <li><img src="img/bbs.png"> BBS</li>
-          <fieldset class="fieldset-photo">
-            <legend>&lt;Photo&gt;</legend>
-            <div class="div-photo">
-              <li><img src="img/photo.png">.1</li>
-              <li><img src="img/photo.png">.2</li>
-              <li><img src="img/photo.png">.3</li>
-              <li><img src="img/photo.png">.4</li>
-              <!-- ★追加場所1 -->
-            </div>
-          </fieldset>
-        </ul>
-      </nav>
+    <div class="li_div_div">
+      <div class="title_div">写真</div>
+      <div class="li_div">
+        <li>
+          <span>1</span>
+          <span class="img_span"><img src="img/photo.svg"></span>
+        </li>
+        <li>
+          <span>2</span>
+          <span class="img_span"><img src="img/photo.svg"></span>
+        </li>
+        <li>
+          <span>3</span>
+          <span class="img_span"><img src="img/photo.svg"></span>
+        </li>
+        <li>
+          <span>4</span>
+          <span class="img_span"><img src="img/photo.svg"></span>
+        </li>
+        <!-- 追加場.1★ -->
+      </div>
+    </div>
+  </ul>
+</header>
 
-      <nav class="nav2">
-        <fieldset class="fieldset-link">
-          <legend>&lt;Link&gt;</legend>
-          <ul>
-            <li><a href="https://www.youtube.com/channel/UCHlXOu7-nQ9oVRXcaE4PPvg/videos"><img src="img/youtube.png"></a></li>
-            <li><a href="https://vimeo.com/386126987"><img src="img/vimeo.png"></a></li>
-            <li><a href="https://9219.teacup.com/miike/bbs/mailform/button"><img src="img/mail.png"></a></li>
-            <li><a href="private/game.html"><img src="img/game.png"></a></li>
-          </ul>
-        </fieldset>
-      </nav>
-    </header>
-  
-    <main>
-      <section class="home active">
-        <h1>御池こけない体操愛好会</h1>
-        <div class="frame">
-          <iframe src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe><script src="https://player.vimeo.com/api/player.js"></script>
-        </div>
-        
-        <h1>宮崎日日新聞</h1>
-        <fieldset class="fieldset-news">
-          <legend>御池こけない体操愛好会 <time>R.2.2.19</time></legend>
-          <p>「体使いストレス発散」。休校している御池小学校を使い、週1回グラウンドゴルフや"こなけない体操"などを楽しむのは60~90代の住民。校内には笑い声が響き、ストレス発散になっているという。矢野勝一会長は「最高の仲間。これからも会を継続したい」と意気込む。</p>
-          <img src="https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000046.png">
-        </fieldset>
-      </section>
+<main>
+  <section class="home_section active">
+    <h1>御池こけない体操愛好会</h1>
+    <div class="iframe_div">
+      <iframe src="https://player.vimeo.com/video/386126987?title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe><script src="https://player.vimeo.com/api/player.js"></script>
+    </div>
+    
+    <h1>宮崎日日新聞</h1>
+    <fieldset class="news_fieldset">
+      <legend>御池こけない体操愛好会 <time>R.2.2.19</time></legend>
+      <p>「体使いストレス発散」。休校している御池小学校を使い、週1回グラウンドゴルフや"こなけない体操"などを楽しむのは60~90代の住民。校内には笑い声が響き、ストレス発散になっているという。矢野勝一会長は「最高の仲間。これからも会を継続したい」と意気込む。</p>
+      <img src="https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000046.png">
+    </fieldset>
+  </section>
 
-      <section class="bbs">
-        <iframe src="" frameborder="0"></iframe>
-      </section>
+  <section class="bbs_section">
+    <iframe src="" frameborder="0"></iframe>
+  </section>
 
-      <!-- <section class="photo"> -->
-          <!-- <div class="startdiv"></div> -->
-          <!-- <div class="stopdiv"></div> -->
-          <!-- <div class="leftdiv"></div> -->
-          <!-- <div class="rightdiv"></div> -->
+  <div class="loading_icon"></div>
 
-          <!-- <img src="" class="mainImg"> -->
+  <!-- <section class="photo_section">
+    <div class="main_img_div">
+      <img src="" class="main_img">
 
-          <!-- <div class="iconDiv"></div> -->
+      <div class="play_div">play</div>
+      <div class="left_div">left</div>
+      <div class="right_div">right</div>
+    </div>
 
-      <!-- </section> -->
+    <div class="icon_div"></div>
+  </section> -->
+</main>
 
-      <div class="loading">読み込み中</div>
-    </main>
-  </div>
-  <script src="js/main.js"></script>
+<script>
+const Sources =[
+  [
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000012.jpg',
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000007.jpg',
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000013.jpg',
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000014.jpg',
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000015.png',
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000016.png',
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000017.png',
+  ],
+  [
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000023.png',
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000024.png',
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000025.png',
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000026.png',
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000027.png',
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000028.png',
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000029.png',
+  ],
+  [
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000018.jpg',
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000019.jpg',
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000020.jpg',
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000021.jpg',
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000022.png',
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000052.png',
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000051.png',
+  ],
+  [
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000031.png',
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000030.png',
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000032.png',
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000006.png',
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000048.jpg',
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000049.jpg',
+    'https://userimg.teacup.com/userimg/9219.teacup.com/miike/img/bbs/0000050.png',
+  ],
+  // 追加場所.2★
+];
+</script>
+<script src="js/main.js"></script>
 </body>
 </html>
