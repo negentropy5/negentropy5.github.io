@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>loading</title>
+</head>
+<body>
+  <div class="loading" style="text-align: center">
+    <canvas id="Canvas"width="320"height="320"></canvas>
+    <div style="color: #4285f4">読み込み中</div>
+  </div>
+  <script>
+  const ctx = Canvas.getContext('2d');
+  let angle = 0;
+  function func(){
+    angle += 12;
+    let cos = Math.cos(angle * Math.PI / 180);  
+    let sin = Math.sin(angle * Math.PI / 180);   
+    ctx.fillStyle = 'rgba(255, 255, 255, .4)';
+    ctx.fillRect(0, 0, Canvas.width, Canvas.height);
+    ctx.fillStyle = '#4285f4';
+    ctx.fillRect(150 + (150 * sin), 150 - (150 * cos),  20, 20); 
+    setTimeout(func, 50);
+  }func();
+  </script>
+</body>
+</html>
